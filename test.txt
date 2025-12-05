@@ -1,0 +1,147 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+// ANSI Colors
+#define RESET   "\033[0m"
+#define CYAN    "\033[36m"
+#define YELLOW  "\033[33m"
+#define GREEN   "\033[32m"
+#define RED     "\033[31m"
+#define BOLD    "\033[1m"
+
+void checkBalance(int balance);
+int depositMoney(int balance);
+int withdrawMoney(int balance);
+
+// Header function
+void showHeader() {
+    cout << CYAN << "==========================================" << endl;
+    cout << "            SIMPLE BANK SYSTEM            " << endl;
+    cout << "==========================================" << RESET << endl;
+}
+
+int main()
+{
+    system("clear");
+    int choice;
+    int balance = 0;
+
+    do
+    {
+        system("clear");
+        showHeader();
+
+        cout << YELLOW << BOLD << "\n              MAIN MENU\n\n" << RESET;
+
+        cout << "[1] Check Balance\n";
+        cout << "[2] Deposit Money\n";
+        cout << "[3] Withdraw Money\n";
+        cout << "[4] Exit\n\n";
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            checkBalance(balance);
+            break;
+
+        case 2:
+            balance += depositMoney(balance);
+            break;
+
+        case 3:
+            balance -= withdrawMoney(balance);
+            break;
+
+        case 4:
+            system("clear");
+            showHeader();
+            cout << GREEN << "\nThanks for using the Banking System!" << RESET << endl;
+            cout << "Made by Om Bodkhe\n\n";
+            break;
+
+        default:
+            cout << RED << "Invalid choice! Try again.\n" << RESET;
+        }
+
+        if (choice != 4)
+            system("read -p 'Press Enter to continue...' var");
+
+    } while (choice != 4);
+
+    return 0;
+}
+
+// Check Balance
+void checkBalance(int amount)
+{
+    system("clear");
+    showHeader();
+
+    cout << GREEN << "\nYour current balance: " << amount << " rupees\n\n" << RESET;
+}
+
+// Deposit
+int depositMoney(int balance)
+{
+    int deposit;
+
+    system("clear");
+    showHeader();
+
+    cout << "Enter amount to deposit: ";
+    cin >> deposit;
+
+    if (deposit <= 0)
+    {
+        cout << RED << "Invalid amount! Try again.\n\n" << RESET;
+        return 0;
+    }
+
+    system("clear");
+    showHeader();
+
+    cout << GREEN;
+    cout << "Successfully deposited " << deposit << " rupees.\n";
+    cout << "New Balance: " << (balance + deposit) << " rupees.\n\n";
+    cout << RESET;
+
+    return deposit;
+}
+
+// Withdraw
+int withdrawMoney(int balance)
+{
+    int withdraw;
+
+    system("clear");
+    showHeader();
+
+    cout << "Enter amount to withdraw: ";
+    cin >> withdraw;
+
+    if (withdraw <= 0)
+    {
+        cout << RED << "Invalid amount! Try again.\n\n" << RESET;
+        return 0;
+    }
+
+    if (withdraw > balance)
+    {
+        cout << RED << "Insufficient Balance!\n\n" << RESET;
+        return 0;
+    }
+
+    system("clear");
+    showHeader();
+
+    cout << GREEN;
+    cout << "Successfully withdrawn " << withdraw << " rupees.\n";
+    cout << "New Balance: " << (balance - withdraw) << " rupees.\n\n";
+    cout << RESET;
+
+    return withdraw;
+}
